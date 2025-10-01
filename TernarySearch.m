@@ -23,7 +23,6 @@ leftSearchValues={{left,F[left]}};
 rightSearchValues={{right,F[right]}};
 
 If[monitorQ,
-	Monitor[
 	While[Abs[leftSearchValues[[-1,1]]-rightSearchValues[[-1,1]]]>\[Epsilon],
 		leftThird=left+(right-left)/3;
 		rightThird=right-(right-left)/3;
@@ -35,8 +34,8 @@ If[monitorQ,
 			left=leftThird;
 			AppendTo[leftSearchValues,searchValtmp[[1]]]
 		];
+		Print@Abs[leftSearchValues[[-1,1]]-rightSearchValues[[-1,1]]];
 	];
-	,{Abs[leftSearchValues[[-1,1]]-rightSearchValues[[-1,1]]]}]
 ,
 		While[Abs[leftSearchValues[[-1,1]]-rightSearchValues[[-1,1]]]>\[Epsilon],
 		leftThird=left+(right-left)/3;
@@ -72,7 +71,7 @@ leftSearchValues={{\[Delta]tTab[[leftPos]],F[\[Delta]tTab[[leftPos]]]}};
 rightSearchValues={{\[Delta]tTab[[rightPos]],F[\[Delta]tTab[[rightPos]]]}};
 
 If[monitorQ,
-Monitor[
+
 While[leftPos!=rightPos,
 	rightThird=Position[\[Delta]tTab,First@Nearest[\[Delta]tTab,\[Delta]tTab[[rightPos]]-(\[Delta]tTab[[rightPos]]-\[Delta]tTab[[leftPos]])/3]][[1,1]];
 	leftThird=Position[\[Delta]tTab,First@Nearest[\[Delta]tTab,\[Delta]tTab[[leftPos]]+(\[Delta]tTab[[rightPos]]-\[Delta]tTab[[leftPos]])/3]][[1,1]];
@@ -91,8 +90,9 @@ While[leftPos!=rightPos,
 ];
 AppendTo[leftSearchValues,{\[Delta]tTab[[leftPos]],F[\[Delta]tTab[[leftPos]]]}];
 AppendTo[rightSearchValues,{\[Delta]tTab[[rightPos]],F[\[Delta]tTab[[rightPos]]]}];
+Print@Abs[leftPos-rightPos];
 ];
-,leftPos-rightPos],
+,
 While[leftPos!=rightPos,
 	rightThird=Position[\[Delta]tTab,First@Nearest[\[Delta]tTab,\[Delta]tTab[[rightPos]]-(\[Delta]tTab[[rightPos]]-\[Delta]tTab[[leftPos]])/3]][[1,1]];
 	leftThird=Position[\[Delta]tTab,First@Nearest[\[Delta]tTab,\[Delta]tTab[[leftPos]]+(\[Delta]tTab[[rightPos]]-\[Delta]tTab[[leftPos]])/3]][[1,1]];
